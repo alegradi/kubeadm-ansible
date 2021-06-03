@@ -1,7 +1,7 @@
 ---
 galaxy_info:
   author: Adam Legradi
-  description: Install Docker on target 
+  description: Prepare servers for kubeadm Kubernetes install
   license: MIT
   min_ansible_version: 2.7
   platforms:

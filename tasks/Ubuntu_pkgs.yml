@@ -1,0 +1,10 @@
+---
+
+- name: Install pre-requisites
+  apt:
+    update_cache: true
+    state: present
+    name:
+      - apt-transport-https
+      - curl
+      - ca-certificates

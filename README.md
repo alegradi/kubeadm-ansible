@@ -1,6 +1,6 @@
-# Docker-Ansible
+# Kubeadm-Ansible
 
-Ansible role to install Docker.
+Ansible role to prepare nodes for a kubeadm Kubernetes install.
 
 ## Requirements
 

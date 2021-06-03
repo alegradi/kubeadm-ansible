@@ -1,3 +1,1 @@
 ---
-
-docker_ansible_docker_user: "{{ ansible_user }}"

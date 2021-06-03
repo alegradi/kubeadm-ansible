@@ -1,15 +1,32 @@
 ---
 
-- name: Include Distro specific tasks
-  include_tasks: "{{ item }}"
-  with_first_found:
-    - files:
-        - "{{ ansible_distribution }}_{{ ansible_distribution_major_version }}.yml"
-        - "{{ ansible_distribution }}.yml"
-      skip: true
+- name: Make sure br_netfilter kernel module is loaded
+  modprobe:
+    name: br_netfilter
+    state: present
 
-- name: Add user to docker group
-  user:
-    name: "{{ docker_ansible_docker_user }}"
-    groups: docker
-    append: true
+- name: Ensure br_netfilter is loaded on boot
+  copy:
+    src: k8s.conf
+    dest: /etc/modules-load.d/k8s.conf
+    owner: root
+    group: root
+    mode: '0644'
+
+- name: Set up iptables to see bridged traffic (IPv6)
+  ansible.posix.sysctl:
+    name: net.bridge.bridge-nf-call-ip6tables
+    value: '1'
+    state: present
+    reload: true
+
+- name: Set up iptables to see bridged traffic (IPv4)
+  ansible.posix.sysctl:
+    name: net.bridge.bridge-nf-call-iptables
+    value: '1'
+    state: present
+    reload: true  
+
+- name: Include package installation tasks
+  include_tasks: "{{ ansible_distribution }}_pkgs.yml"
+
