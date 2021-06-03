@@ -1,0 +1,12 @@
+---
+
+- name: Prepare 
+  hosts: all
+  gather_facts: false
+  tasks:
+    - name: Install python for Ansible (Ubuntu)
+      raw: test -e /usr/bin/python || (apt -y update && apt install -y python-minimal)
+      changed_when: false
+    - name: Install sudo if missing
+      raw: test -e /usr/bin/sudo || (apt -y update && apt install -y sudo)
+      changed_when: false

@@ -1,0 +1,19 @@
+# Vagrant #
+.vagrant
+
+# Python #
+*.pyc
+__pycache__
+pytestdebug.log
+.pytest_cache/
+
+# Ansible #
+*.retry
+.ansible/
+.ansible_galaxy
+
+# VSCode #
+.vscod
+
+# Molecule #
+.cache/
