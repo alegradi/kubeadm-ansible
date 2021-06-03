@@ -30,3 +30,7 @@
 - name: Include package installation tasks
   include_tasks: "{{ ansible_distribution }}_pkgs.yml"
 
+- name: Include cgroup tasks
+  include_tasks: cgroups.yml
+  tags:
+    - molecule-notest

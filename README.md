@@ -7,7 +7,13 @@ Ansible role to prepare nodes for a kubeadm Kubernetes install.
 Ubuntu 18.04 
 
 ## Role Variables
-None 
+
+```yaml
+kubeadm_packages:
+  - kubelet=1.20.0-00
+  - kubeadm=1.20.0-00
+  - kubectl=1.20.0-00
+```
 
 ## Dependencies
 None

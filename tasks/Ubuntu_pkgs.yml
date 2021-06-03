@@ -8,3 +8,37 @@
       - apt-transport-https
       - curl
       - ca-certificates
+      - python-gpg
+
+# Unfortunately the below is not working due to a bug: https://github.com/ansible/ansible/issues/74770
+# Temporary workaround below
+#- name: Get the Google Cloud public signing key
+#  apt_key:
+#    url: https://packages.cloud.google.com/apt/doc/apt-key.gpg
+#    state: present
+#
+#- name: Add the Google Cloud public repo
+#  apt_repository:
+#    repo: deb http://apt.kubernetes.io/ kubernetes-xenial main
+#    state: present
+#    filename: 'kubernetes'
+
+- name: Manually install Google Cloud public signing key
+  get_url:
+    url: https://packages.cloud.google.com/apt/doc/apt-key.gpg
+    dest: /usr/share/keyrings/kubernetes-archive-keyring.gpg
+
+- name: Manually add Google Cloud repo
+  lineinfile:
+    path: /etc/apt/sources.list.d/kubernetes.list
+    line: "deb [signed-by=/usr/share/keyrings/kubernetes-archive-keyring.gpg] https://apt.kubernetes.io/ kubernetes-xenial main"
+    create: true
+    owner: root
+    group: root
+    mode: '0644'
+
+- name: Install Kubernetes packages
+  apt:
+    update_cache: true
+    state: present
+    name: "{{ kubeadm_packages }}"

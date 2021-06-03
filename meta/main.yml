@@ -1,6 +1,9 @@
 ---
+
 galaxy_info:
+  role_name: kubeadm
   author: Adam Legradi
+  company: Private
   description: Prepare servers for kubeadm Kubernetes install
   license: MIT
   min_ansible_version: 2.7
@@ -11,3 +14,5 @@ galaxy_info:
     - name: Ubuntu
       versions:
         - "bionic"
+  galaxy_tags:
+    - "kubeadm"
